@@ -4,7 +4,7 @@ const ctx = document.getElementById('myChart').getContext('2d')
 
 const init = {
 	base: 10000,
-	rate: 1.05,
+	rate: 5,
 	year: 10,
 }
 
@@ -54,7 +54,7 @@ const setValue = () => {
 
 	const year = parseInt(q('[name=year]').value)
 	const base = parseInt(q('[name=base]').value)
-	const rate = Number(q('[name=rate]').value)
+	const rate = Number(q('[name=rate]').value) / 100 + 1
 	const startYear = parseInt(new Date().getFullYear())
 
 	for (let i = 0; i < year; i++) {
