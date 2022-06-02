@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="ja">
-	<head>
-		  <meta charset="utf-8">
-      <link rel="stylesheet" media="all" href="index.css"/>
-  </head>
-  <body>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
-    <canvas id="myChart" width="400" height="400"></canvas>
-    <div>
-      <label>毎年</label>
-      <input name="base" type="number" step="1000">円
-    </div>
-    <div>
-      <label>利回り</label>
-      <input name="rate" type="number" step="0.01">%
-    </div>
-    <div>
-      <label>期間</label>
-      <input name="year" type="number" step="1">年
-    </div>
-    <button>再計算</button>
-    <p>トータル[<span id="total"></span>%]の増加</p>
-    <script src="index.js"></script>
-  </body>
+	  <head>
+		    <meta charset="utf-8">
+        <link rel="stylesheet" media="all" href="index.css"/>
+    </head>
+    <body>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
+        <canvas id="myChart" width="400" height="400"></canvas>
+        <form>
+            <div>
+                <label>毎年</label>
+                <input name="base" type="number" step="1000">円
+            </div>
+            <div>
+                <label>利回り</label>
+                <input name="rate" type="number" step="0.01">%
+            </div>
+            <div>
+                <label>期間</label>
+                <input name="year" type="number" step="1">年
+            </div>
+            <button>再計算</button>
+        </form>
+        <p>結果：資産[<span id="s1"></span>] - 投資[<span id="s2"></span>] = 利益[<span id="s3"></span>]
+            <p>増加率：[<span id="total"></span>%]</p>
+            <script src="index.js"></script>
+    </body>
 </html>
