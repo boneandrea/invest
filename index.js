@@ -1,68 +1,81 @@
-const ctx = document.getElementById('myChart').getContext('2d');
+const q = (e) => document.querySelector(e);
 
-const data=[[],[]]
-const labels=[]
+const ctx = document.getElementById("myChart").getContext("2d");
 
-const base=10000
-const rate=1.05
-const year=10
-let val=0
-let original=0
-let myChart
-const draw=()=>{
-    myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels,
-            datasets: [
-                {
-                    label: '資産',
-                    data:data[0],
-                    borderWidth: 1,
-                    borderColor: "#ff0000",
-                },
-                {
-                    label: '投資',
-                    data:data[1],
-                    borderWidth: 1,
-                    borderColor: "#00ff00",
-                },
-            ]
+const init = {
+  base: 10000,
+  rate: 1.05,
+  year: 10,
+};
+
+let myChart;
+const draw = (labels, data) => {
+  myChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [
+        {
+          label: "資産",
+          data: data[0],
+          borderWidth: 1,
+          borderColor: "#ff0000",
         },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    })
-}
+        {
+          label: "投資",
+          data: data[1],
+          borderWidth: 1,
+          borderColor: "#00ff00",
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
 
-const setValue=()=>{
-    for(let i=0;i<year;i++){
-        original+=base
-        val=val*1.05+base
-        data[0].push(val)
-        data[1].push(original)
-        labels.push(startYear+i)
-    }
-}
+  const total =
+    (data[0][data[0].length - 1] / data[1][data[1].length - 1]) * 100 - 100;
+  q("#total").textContent = Math.round(total * 100) / 100;
+};
 
+const setValue = () => {
+  const labels = [];
+  const data = [[], []];
+  let original = 0;
+  let val = 0;
 
-const q=e=>document.querySelector(e)
-q("button").addEventListener("click",e=>{
-    if (myChart) {
-        myChart.destroy();
-        setValue()
-        draw()
-    }
-})
+  const year = parseInt(q("[name=year]").value);
+  const base = parseInt(q("[name=base]").value);
+  const rate = Number(q("[name=rate]").value);
+  const startYear = parseInt(new Date().getFullYear());
 
-const startYear=parseInt((new Date()).getFullYear())
-q("[name=base]").value=base
-q("[name=rate]").value=rate
-q("[name=year]").value=year
+  for (let i = 0; i < year; i++) {
+    original += base;
+    val = val * rate + base;
+    data[0].push(val);
+    data[1].push(original);
+    labels.push(startYear + i);
+  }
 
-setValue()
-draw()
+  return [labels, data];
+};
+
+q("button").addEventListener("click", (e) => {
+  if (myChart) {
+    myChart.destroy();
+    const data = setValue();
+    draw(...data);
+  }
+});
+
+q("[name=base]").value = init.base;
+q("[name=rate]").value = init.rate;
+q("[name=year]").value = init.year;
+
+const data = setValue();
+draw(...data);
