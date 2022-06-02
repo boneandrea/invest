@@ -9,6 +9,7 @@ const init = {
 }
 
 let myChart
+const fn = (n) => Number(n.toFixed()).toLocaleString()
 const draw = (labels, data) => {
 	myChart = new Chart(ctx, {
 		type: 'line',
@@ -40,10 +41,10 @@ const draw = (labels, data) => {
 
 	const total = (data[0][data[0].length - 1] / data[1][data[1].length - 1]) * 100 - 100
 	q('#total').textContent = Math.round(total * 100) / 100
-	q('#s1').textContent = Number(data[0][data[0].length - 1]).toFixed()
-	q('#s2').textContent = data[1][data[1].length - 1]
-	q('#s3').textContent = Number(data[0][data[0].length - 1]).toFixed() - data[1][data[1].length - 1]
-	q('#total').textContent = Math.round(total * 100) / 100
+	q('#s1').textContent = fn(data[0][data[0].length - 1])
+	q('#s1').textContent = fn(data[0][data[0].length - 1])
+	q('#s2').textContent = fn(data[1][data[1].length - 1])
+	q('#s3').textContent = fn(data[0][data[0].length - 1] - data[1][data[1].length - 1])
 }
 
 const setValue = () => {
